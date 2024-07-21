@@ -1,19 +1,29 @@
 {
-	"compilerOptions": {
+	
+    "compilerOptions": {
 		"module": "commonjs",
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"target": "es6",
-		"noImplicitAny": true,
+		"target": "es2017",
+		"experimentalDecorators": true,
 		"moduleResolution": "node",
-		"sourceMap": true,
+		"removeComments": true,
+		"lib": ["ES2015", "ESNext", "ES2016"],
 		"outDir": "dist",
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"types": ["node"],
 		"baseUrl": ".",
 		"paths": {
-			"*": ["node_modules/*", "src/types/*"],
-			"~@/*": ["./core/*"],
-		}
-	},
-	"include": ["./src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js"],
+		  "~@/*": ["./core/*"],
+		},
+		"esModuleInterop": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"resolveJsonModule": true,
+		"isolatedModules": false
+	  },
+	"include": ["src/*.ts", "./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js", "./core/**/*", "./core/**/*.ts", "./core/**/*.tsx", "./core/**/*.js"],
 	"exclude": ["api/**/*.spec.ts", "api/**/*.spec.ts","node_modules/**"],
 }
