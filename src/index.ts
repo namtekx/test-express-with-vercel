@@ -12,7 +12,7 @@ app.get('/ping', (_req: Request, res: Response) => {
 	return res.send('pong 🏓')
 })
 
-app.get("/", async (req, res) => {
+app.get("/test", async (req, res) => {
 	const query = req.query
 	return response(res).success({
 	  user: {
