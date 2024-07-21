@@ -22,7 +22,7 @@ app.get('/', (_req, res) => {
 app.get('/ping', (_req, res) => {
     return res.send('pong 🏓');
 });
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/test", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
     return (0, response_module_1.response)(res).success({
         user: {
