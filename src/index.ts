@@ -16,7 +16,7 @@ app.get("/test", async (req, res) => {
 	const query = req.query
 	return response(res).success({
 	  user: {
-		email: "nam@gmail.com",
+		email: "nam12312312@gmail.com",
 		id: "123",
 		query
 	  }
