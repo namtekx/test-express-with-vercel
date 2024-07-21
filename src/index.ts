@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { response } from '~@/modules/response.module'
+import { response } from '../core/modules/response.module'
 
 const app = express()
 const port = process.env.PORT || 8080

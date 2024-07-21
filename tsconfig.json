@@ -14,6 +14,7 @@
 // 		"baseUrl": ".",
 // 		"paths": {
 // 		  "~@/*": ["./core/*"],
+// 		  "*": ["node_modules/*", "src/types/*"],
 // 		},
 // 		"esModuleInterop": true,
 // 		"allowJs": true,
@@ -22,7 +23,9 @@
 // 		"forceConsistentCasingInFileNames": true,
 // 		"noEmit": true,
 // 		"resolveJsonModule": true,
-// 		"isolatedModules": false
+// 		"isolatedModules": false,
+// 		"allowSyntheticDefaultImports": true,
+// 		"noImplicitAny": true,
 // 	  },
 // 	"include": ["src/*.ts", "./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js", "./core/**/*", "./core/**/*.ts", "./core/**/*.tsx", "./core/**/*.js"],
 // 	"exclude": ["api/**/*.spec.ts", "api/**/*.spec.ts","node_modules/**"],
@@ -42,7 +45,9 @@
 		"paths": {
 			"*": ["node_modules/*", "src/types/*"],
 			"~@/*": ["./core/*"]
-		}
+		},
+		"isolatedModules": false,
+		"noEmit": false
 	},
 	"include": ["src/*.ts", "./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js", "./core/**/*", "./core/**/*.ts", "./core/**/*.tsx", "./core/**/*.js"],
 	"exclude": ["api/**/*.spec.ts", "api/**/*.spec.ts","node_modules/**"],
