@@ -1,29 +1,49 @@
-{
+// {
 	
-    "compilerOptions": {
+//     "compilerOptions": {
+// 		"module": "commonjs",
+// 		"target": "es2017",
+// 		"experimentalDecorators": true,
+// 		"moduleResolution": "node",
+// 		"removeComments": true,
+// 		"lib": ["ES2015", "ESNext", "ES2016"],
+// 		"outDir": "dist",
+// 		"preserveConstEnums": true,
+// 		"sourceMap": true,
+// 		"types": ["node"],
+// 		"baseUrl": ".",
+// 		"paths": {
+// 		  "~@/*": ["./core/*"],
+// 		},
+// 		"esModuleInterop": true,
+// 		"allowJs": true,
+// 		"skipLibCheck": true,
+// 		"strict": false,
+// 		"forceConsistentCasingInFileNames": true,
+// 		"noEmit": true,
+// 		"resolveJsonModule": true,
+// 		"isolatedModules": false
+// 	  },
+// 	"include": ["src/*.ts", "./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js", "./core/**/*", "./core/**/*.ts", "./core/**/*.tsx", "./core/**/*.js"],
+// 	"exclude": ["api/**/*.spec.ts", "api/**/*.spec.ts","node_modules/**"],
+// }
+
+{
+	"compilerOptions": {
 		"module": "commonjs",
-		"target": "es2017",
-		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es6",
+		"noImplicitAny": true,
 		"moduleResolution": "node",
-		"removeComments": true,
-		"lib": ["ES2015", "ESNext", "ES2016"],
-		"outDir": "dist",
-		"preserveConstEnums": true,
 		"sourceMap": true,
-		"types": ["node"],
+		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {
-		  "~@/*": ["./core/*"],
-		},
-		"esModuleInterop": true,
-		"allowJs": true,
-		"skipLibCheck": true,
-		"strict": false,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"resolveJsonModule": true,
-		"isolatedModules": false
-	  },
+			"*": ["node_modules/*", "src/types/*"],
+			"~@/*": ["./core/*"]
+		}
+	},
 	"include": ["src/*.ts", "./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js", "./core/**/*", "./core/**/*.ts", "./core/**/*.tsx", "./core/**/*.js"],
 	"exclude": ["api/**/*.spec.ts", "api/**/*.spec.ts","node_modules/**"],
 }
