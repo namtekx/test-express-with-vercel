@@ -8,5 +8,6 @@ const auth_1 = require("../apis/auth");
 const router = express_1.default.Router();
 router.get("/access_token", auth_1.AccessToken);
 router.post("/login", auth_1.Login);
+router.post("/register", auth_1.Register);
 exports.default = router;
 //# sourceMappingURL=AuthController.js.map

@@ -1,17 +1,19 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import ILogin from "~@/Interfaces/Login.interface";
-import LoginValidator from "~@/validators/Login.validator";
-import { response } from "~@/modules/response.module";
-import { generateToken } from "~@/modules/generate.module";
-import { fetchUsers } from "~@/postgres/user/dml";
+import ILogin from "../../../Interfaces/Login.interface";
+import LoginValidator from "../../../validators/Login.validator";
+import { response } from "../../../modules/response.module";
+import { generateToken } from "../../../modules/generate.module";
+import { fetchUsers } from "../../../postgres/user/dml";
 
 export default async (req: Request, res: Response) => {
   try {
     const data: ILogin = req.body
     LoginValidator.validateSync(data)
+    console.log(process.env.SIGN)
 
-    const users = await fetchUsers(`SELECT * FROM users WHERE email='${data.email}' AND password='${data.password}'`)
+    const filter = [data.email]
+    const users = await fetchUsers(`SELECT * FROM users WHERE email=$1`, filter)
 
     if(users.length <= 0) {
       return response(res).error(404, {
@@ -34,11 +36,9 @@ export default async (req: Request, res: Response) => {
     });
 
     return response(res).success({
-      data: token,
-      user: {
-        email: user.email,
-        id: user.id,
-      }
+      token: token,
+      email: user.email,
+      id: user.id,
     })
     
   } catch (err) {

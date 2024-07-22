@@ -5,12 +5,12 @@ export const response = (res: Response) => {
     success: (payload: object) =>
       res.json({
         isError: false,
-        payload,
+        ...payload,
       }),
     error: (errorCode: number, payload: object) =>
       res.status(errorCode).json({
         isError: true,
-        payload,
+        ...payload,
       }),
   };
 };

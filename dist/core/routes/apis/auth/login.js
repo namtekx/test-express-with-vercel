@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const Login_validator_1 = __importDefault(require("~@/validators/Login.validator"));
-const response_module_1 = require("~@/modules/response.module");
-const generate_module_1 = require("~@/modules/generate.module");
-const dml_1 = require("~@/postgres/user/dml");
+const Login_validator_1 = __importDefault(require("../../../validators/Login.validator"));
+const response_module_1 = require("../../../modules/response.module");
+const generate_module_1 = require("../../../modules/generate.module");
+const dml_1 = require("../../../postgres/user/dml");
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;

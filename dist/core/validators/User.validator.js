@@ -26,8 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Yup = __importStar(require("yup"));
 exports.default = Yup.object().shape({
     name: Yup.string().required(),
-    userName: Yup.string().required(),
-    password: Yup.string(),
+    username: Yup.string().required(),
+    password: Yup.string().min(6).required(),
     phone: Yup.string(),
     email: Yup.string().email().required(),
     photo: Yup.string(),

@@ -10,28 +10,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsers = exports.updateUsers = exports.fetchUsers = exports.createUser = void 0;
-const postgres_1 = require("@vercel/postgres");
+const index_1 = require("../../index");
 const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield (0, postgres_1.sql) `SELECT * FROM users`;
-    return user.rows;
+    try {
+        const user = yield index_1.pool.sql `
+        INSERT INTO users (name, username, password, phone, email, photo)
+        VALUES ('${data.name}', '${data.userName}', '${data.password}', '${data.phone}', '${data.email}', '${data.phone}');
+    `;
+        if (user.rows.length > 0) {
+            return user.rows[0];
+        }
+        return null;
+    }
+    catch (err) {
+        throw err;
+    }
 });
 exports.createUser = createUser;
 const fetchUsers = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    if (query) {
-        const user = yield (0, postgres_1.sql) `${query}`;
+    try {
+        if (query) {
+            const user = yield index_1.pool.sql `${query}`;
+            return user.rows;
+        }
+        const user = yield index_1.pool.sql `SELECT * FROM users`;
         return user.rows;
     }
-    const user = yield (0, postgres_1.sql) `SELECT * FROM users`;
-    return user.rows;
+    catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 exports.fetchUsers = fetchUsers;
-const updateUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield (0, postgres_1.sql) `SELECT * FROM users`;
+const updateUsers = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield index_1.pool.sql `
+    UPDATE users 
+      SET name = ${data.name}, 
+          username = ${data.userName},
+          phone = ${data.phone},
+          email = ${data.email},
+          photo = ${data.photo},
+      WHERE id = ${data.id}`;
     return user.rows;
 });
 exports.updateUsers = updateUsers;
-const deleteUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield (0, postgres_1.sql) `SELECT * FROM users`;
+const deleteUsers = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield index_1.pool.sql `DELETE FROM users WHERE id = ${data.id}`;
     return user.rows;
 });
 exports.deleteUsers = deleteUsers;

@@ -12,28 +12,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const response_module_1 = require("../../../modules/response.module");
-const AccessToken_validator_1 = __importDefault(require("../../../validators/AccessToken.validator"));
 const dml_1 = require("../../../postgres/user/dml");
+const User_validator_1 = __importDefault(require("../../../validators/User.validator"));
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
-        AccessToken_validator_1.default.validateSync(data);
-        const decoded = jsonwebtoken_1.default.verify(data.accessToken, process.env.SIGN || "davinci-2024");
-        const email = decoded.email;
-        const users = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email='${email}`);
-        if (users.length <= 0) {
-            return (0, response_module_1.response)(res).error(404, {
-                data: "User Not Found"
+        User_validator_1.default.validateSync(data);
+        const user = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email='${data.email}'`);
+        if (!user) {
+            return (0, response_module_1.response)(res).error(409, {
+                data: "Email is already exists"
             });
         }
-        const user = users[0];
+        const hashedPassword = bcrypt_1.default.hashSync(data.password, 12);
+        const newUser = yield (0, dml_1.createUser)(Object.assign(Object.assign({}, data), { password: hashedPassword }));
+        if (newUser) {
+            return (0, response_module_1.response)(res).error(409, {
+                data: "Cannot Create User"
+            });
+        }
         return (0, response_module_1.response)(res).success({
-            user: {
-                email: user.email,
-                id: user.id,
-            }
+            email: newUser.email,
+            id: newUser.id,
         });
     }
     catch (err) {
@@ -42,4 +44,4 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
-//# sourceMappingURL=access-token.js.map
+//# sourceMappingURL=register.js.map

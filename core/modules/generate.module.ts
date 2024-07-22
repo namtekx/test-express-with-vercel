@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 export const generateToken = (payload: Object) => {
-  const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN}"}`);
+  const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN || "davinci-2024"}"}`);
   return jwt.sign(payload, key, {
     algorithm: "HS256",
     subject: "user_authentication",
@@ -9,7 +9,7 @@ export const generateToken = (payload: Object) => {
 };
 
 export  const generateCodeReset = (payload: Object) => {
-  const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN}"}`);
+  const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN || "davinci-2024"}"}`);
   return jwt.sign(payload, key, {
     algorithm: "HS256",
     subject: "user_reset_pass",

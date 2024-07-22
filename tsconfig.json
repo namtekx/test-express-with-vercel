@@ -44,7 +44,6 @@
 		"baseUrl": ".",
 		"paths": {
 			"*": ["node_modules/*", "src/types/*"],
-			"~@/*": ["./core/*"]
 		},
 		"isolatedModules": false,
 		"noEmit": false
