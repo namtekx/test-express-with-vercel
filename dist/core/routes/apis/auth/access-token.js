@@ -30,10 +30,8 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const user = users[0];
         return (0, response_module_1.response)(res).success({
-            user: {
-                email: user.email,
-                id: user.id,
-            }
+            email: user.email,
+            id: user.id,
         });
     }
     catch (err) {

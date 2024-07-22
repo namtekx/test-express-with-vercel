@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUserTable = void 0;
-const postgres_1 = require("@vercel/postgres");
+const index_1 = require("../../index");
 const createUserTable = () => __awaiter(void 0, void 0, void 0, function* () {
-    const table = yield (0, postgres_1.sql) `
+    const table = yield index_1.pool.query(`
         CREATE TABLE IF NOT EXISTS users (
-            id UUID PRIMARY KEY,
+            id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             username VARCHAR(255),
             password TEXT NOT NULL,
@@ -23,7 +23,7 @@ const createUserTable = () => __awaiter(void 0, void 0, void 0, function* () {
             photo VARCHAR(255),
             active BOOLEAN DEFAULT TRUE
         );
-    `;
+    `);
     return table;
 });
 exports.createUserTable = createUserTable;

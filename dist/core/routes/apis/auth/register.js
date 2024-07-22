@@ -20,15 +20,15 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
         User_validator_1.default.validateSync(data);
-        const user = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email='${data.email}'`);
-        if (!user) {
+        const users = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email= $1`, [data.email]);
+        if (users.length > 0) {
             return (0, response_module_1.response)(res).error(409, {
                 data: "Email is already exists"
             });
         }
         const hashedPassword = bcrypt_1.default.hashSync(data.password, 12);
         const newUser = yield (0, dml_1.createUser)(Object.assign(Object.assign({}, data), { password: hashedPassword }));
-        if (newUser) {
+        if (!newUser) {
             return (0, response_module_1.response)(res).error(409, {
                 data: "Cannot Create User"
             });

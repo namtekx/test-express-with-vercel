@@ -11,12 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsers = exports.updateUsers = exports.fetchUsers = exports.createUser = void 0;
 const index_1 = require("../../index");
+const uuid_1 = require("uuid");
 const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield index_1.pool.sql `
-        INSERT INTO users (name, username, password, phone, email, photo)
-        VALUES ('${data.name}', '${data.userName}', '${data.password}', '${data.phone}', '${data.email}', '${data.phone}');
-    `;
+        const query = `
+            INSERT INTO users (id, name, username, password, phone, email, photo)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING id, email
+        `;
+        const values = [(0, uuid_1.v4)(), data.name, data.username, data.password, data.phone, data.email, data.photo];
+        const user = yield index_1.pool.query(query, values);
         if (user.rows.length > 0) {
             return user.rows[0];
         }
@@ -27,13 +31,13 @@ const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createUser = createUser;
-const fetchUsers = (query) => __awaiter(void 0, void 0, void 0, function* () {
+const fetchUsers = (query_1, ...args_1) => __awaiter(void 0, [query_1, ...args_1], void 0, function* (query, data = []) {
     try {
-        if (query) {
-            const user = yield index_1.pool.sql `${query}`;
+        if (query && data.length > 0) {
+            const user = yield index_1.pool.query(query, data);
             return user.rows;
         }
-        const user = yield index_1.pool.sql `SELECT * FROM users`;
+        const user = yield index_1.pool.query(`SELECT * FROM users`);
         return user.rows;
     }
     catch (err) {
@@ -46,7 +50,7 @@ const updateUsers = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield index_1.pool.sql `
     UPDATE users 
       SET name = ${data.name}, 
-          username = ${data.userName},
+          username = ${data.username},
           phone = ${data.phone},
           email = ${data.email},
           photo = ${data.photo},

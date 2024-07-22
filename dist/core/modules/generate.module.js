@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateCodeReset = exports.generateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const generateToken = (payload) => {
-    const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN}"}`);
+    const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN || "davinci-2024"}"}`);
     return jsonwebtoken_1.default.sign(payload, key, {
         algorithm: "HS256",
         subject: "user_authentication",
@@ -15,7 +15,7 @@ const generateToken = (payload) => {
 };
 exports.generateToken = generateToken;
 const generateCodeReset = (payload) => {
-    const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN}"}`);
+    const { key } = JSON.parse(`{ "type": "HS256", "key": "${process.env.SIGN || "davinci-2024"}"}`);
     return jsonwebtoken_1.default.sign(payload, key, {
         algorithm: "HS256",
         subject: "user_reset_pass",

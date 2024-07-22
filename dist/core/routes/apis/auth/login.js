@@ -21,7 +21,9 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
         Login_validator_1.default.validateSync(data);
-        const users = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email='${data.email}' AND password='${data.password}'`);
+        console.log(process.env.SIGN);
+        const filter = [data.email];
+        const users = yield (0, dml_1.fetchUsers)(`SELECT * FROM users WHERE email=$1`, filter);
         if (users.length <= 0) {
             return (0, response_module_1.response)(res).error(404, {
                 data: "User Not Found"
@@ -39,11 +41,9 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             email: user.email,
         });
         return (0, response_module_1.response)(res).success({
-            data: token,
-            user: {
-                email: user.email,
-                id: user.id,
-            }
+            token: token,
+            email: user.email,
+            id: user.id,
         });
     }
     catch (err) {
